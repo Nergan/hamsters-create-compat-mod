@@ -64,3 +64,27 @@ jobs:
           files: build/release/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: hamsters-create-compat
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-featured: true
+          name: ${{ steps.meta.outputs.title }}
+          version: ${{ steps.meta.outputs.tag }}
+          version-type: beta
+          changelog: ${{ steps.meta.outputs.notes }}
+          loaders: |
+            forge
+            neoforge
+          game-versions: |
+            1.20.1
+          java: |
+            17
+          files: build/release/hamsterscreatecompat-*.jar
+          dependencies: |
+            create(required){modrinth:LNytGWDc}
+            hamsters(required){modrinth:sRzS8pFG}
+            kotlin-for-forge(required){modrinth:ordsPcFz}
+            geckolib(required){modrinth:8BmcQJ2H}

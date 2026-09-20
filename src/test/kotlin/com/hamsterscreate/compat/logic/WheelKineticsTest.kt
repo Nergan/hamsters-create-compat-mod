@@ -30,10 +30,10 @@ class WheelKineticsTest {
 
     @Test
     fun `occupied wheel matches hand crank rpm and create facing sign`() {
-        assertEquals(32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.SOUTH))
-        assertEquals(-32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.NORTH))
-        assertEquals(32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.EAST))
-        assertEquals(-32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.WEST))
+        assertEquals(-32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.SOUTH))
+        assertEquals(32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.NORTH))
+        assertEquals(-32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.EAST))
+        assertEquals(32f, WheelKinetics.generatedSpeed(true, WheelKinetics.HAND_CRANK_RPM, CompatDirection.WEST))
     }
 
     @Test

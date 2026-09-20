@@ -2,13 +2,13 @@ package com.hamsterscreate.compat.logic
 
 /**
  * Create hand-crank defaults (8 SU/RPM at 32 RPM = 256 SU).
- * The hamster wheel animation rotates in +X of the model; after FACING is applied
- * that becomes the shaft axis. [WHEEL_SPIN_SIGN] matches that positive spin.
+ * The hamster wheel animation spins opposite Create's positive axis speed
+ * after FACING is applied, so [WHEEL_SPIN_SIGN] is inverted.
  */
 object WheelKinetics {
     const val HAND_CRANK_RPM: Int = 32
     const val HAND_CRANK_SU_PER_RPM: Double = 8.0
-    const val WHEEL_SPIN_SIGN: Int = 1
+    const val WHEEL_SPIN_SIGN: Int = -1
 
     @JvmStatic
     fun rotationAxis(facing: CompatDirection): CompatAxis = facing.axis
@@ -27,8 +27,11 @@ object WheelKinetics {
 
     @JvmStatic
     fun generatedSpeed(occupied: Boolean, configuredRpm: Int, facing: CompatDirection): Float {
-        val rpm = generatedRpm(occupied, configuredRpm).toFloat() * WHEEL_SPIN_SIGN
-        return convertToDirection(rpm, facing)
+        val rpm = generatedRpm(occupied, configuredRpm)
+        if (rpm == 0) {
+            return 0f
+        }
+        return convertToDirection(rpm.toFloat() * WHEEL_SPIN_SIGN, facing)
     }
 
     @JvmStatic
