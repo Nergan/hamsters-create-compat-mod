@@ -9,7 +9,10 @@
     "HamsterMixin",
     "HamsterWheelBlockMixin"
   ],
-  "client": [],
+  "client": [
+    "GeoBlockRendererMixin",
+    "HamstersClientEventsMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   }
