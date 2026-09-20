@@ -20,7 +20,7 @@ Place a Create shaft against the hub of a hamster wheel. When a hamster runs, th
 
 ## Loader notes (1.20.1)
 
-Create 6.0.8 lists both Forge and NeoForge for 1.20.1. Hamsters 1.0.3 ships a Forge jar. NeoForge 20.1.x still uses `net.minecraftforge` and can load that jar. The public NeoForge 1.20.1 installer was later withdrawn, so this project builds with ForgeGradle / Forge 47.x. The same compat jar is meant to run on Forge 47 and NeoForge 20.1.
+Create 6.0.8 lists both Forge and NeoForge for 1.20.1. Hamsters 1.0.3 ships a Forge jar. NeoForge 20.1.x still uses `net.minecraftforge` and can load that jar. The public NeoForge 1.20.1 installer was later withdrawn, so this project builds with ForgeGradle / Forge 47.x. The same compat jar is meant to run on Forge 47 and NeoForge 20.1. The entrypoint is `javafml`; Kotlin for Forge stays a required library.
 
 A 1.21.1 port will move to NeoForge packages, `neoforge.mods.toml`, Kotlin for Forge 5.x, and the Hamsters `1.21.1-Neo` line. Gameplay rules live in `src/logic` so that port stays small.
 

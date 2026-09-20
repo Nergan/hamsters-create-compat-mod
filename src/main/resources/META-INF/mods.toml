@@ -1,5 +1,5 @@
-modLoader = "kotlinforforge"
-loaderVersion = "${loader_version_range}"
+modLoader = "javafml"
+loaderVersion = "${forge_version_range}"
 license = "${mod_license}"
 issueTrackerURL = "https://github.com/nargan/hamsters-create-compat/issues"
 

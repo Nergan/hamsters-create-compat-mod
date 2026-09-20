@@ -20,7 +20,7 @@
 
 ## Про лоадер (1.20.1)
 
-Create 6.0.8 на 1.20.1 ставится и на Forge, и на NeoForge. Hamsters 1.0.3 выпускается как Forge-jar. NeoForge 20.1.x ещё использует пакеты `net.minecraftforge` и этот jar подхватывает. Публичный инсталлятор NeoForge 1.20.1 позже сняли, поэтому проект собирается через ForgeGradle / Forge 47.x. Тот же jar компата рассчитан на Forge 47 и NeoForge 20.1.
+Create 6.0.8 на 1.20.1 ставится и на Forge, и на NeoForge. Hamsters 1.0.3 выпускается как Forge-jar. NeoForge 20.1.x ещё использует пакеты `net.minecraftforge` и этот jar подхватывает. Публичный инсталлятор NeoForge 1.20.1 позже сняли, поэтому проект собирается через ForgeGradle / Forge 47.x. Тот же jar компата рассчитан на Forge 47 и NeoForge 20.1. Точка входа — `javafml`; Kotlin for Forge остаётся обязательной библиотекой.
 
 Порт на 1.21.1 уйдёт на пакеты NeoForge, `neoforge.mods.toml`, Kotlin for Forge 5.x и ветку Hamsters `1.21.1-Neo`. Игровые правила лежат в `src/logic`, чтобы порт оставался узким.
 
