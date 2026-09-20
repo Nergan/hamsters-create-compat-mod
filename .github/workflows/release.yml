@@ -42,8 +42,10 @@ jobs:
         run: |
           sha="${GITHUB_SHA}"
           short="${sha:0:7}"
+          version="$(grep -E '^mod_version=' gradle.properties | cut -d= -f2- | tr -d '\r')"
           echo "tag=build-${{ github.run_number }}-${short}" >> "$GITHUB_OUTPUT"
           echo "title=Build ${{ github.run_number }} (${short})" >> "$GITHUB_OUTPUT"
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
           {
             echo 'notes<<EOF'
             echo "Automatic build from \`${sha}\` on \`${{ github.ref_name }}\`."
@@ -71,12 +73,11 @@ jobs:
           modrinth-id: hamsters-create-compat
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           modrinth-featured: true
-          name: ${{ steps.meta.outputs.title }}
-          version: ${{ steps.meta.outputs.tag }}
-          version-type: beta
+          name: ${{ steps.meta.outputs.version }}
+          version: ${{ steps.meta.outputs.version }}
+          version-type: release
           changelog: ${{ steps.meta.outputs.notes }}
           loaders: |
-            forge
             neoforge
           game-versions: |
             1.20.1
