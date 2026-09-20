@@ -18,6 +18,10 @@ object WheelKinetics {
         facing.axis == face.axis
 
     @JvmStatic
+    fun variantScale(name: String): Int =
+        if (name.equals("black", ignoreCase = true)) 2 else 1
+
+    @JvmStatic
     fun generatedRpm(occupied: Boolean, configuredRpm: Int): Int =
         if (occupied && configuredRpm != 0) configuredRpm else 0
 

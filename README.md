@@ -35,9 +35,9 @@ A 1.21.1 port will move to NeoForge packages, `neoforge.mods.toml`, Kotlin for F
 | [Hamsters](https://modrinth.com/mod/hamsters) | 1.20.1-1.0.3 (Forge) |
 | [GeckoLib](https://modrinth.com/mod/geckolib) | 4.4.9 (Hamsters dependency) |
 
-## Server config
+## Config
 
-World file: `serverconfig/hamsterscreatecompat-server.toml`
+Mods list → Create: Hamsters Compat → Config, or `config/hamsterscreatecompat-common.toml`.
 
 | Key | Default | Meaning |
 | --- | --- | --- |

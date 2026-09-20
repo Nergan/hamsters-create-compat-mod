@@ -56,4 +56,26 @@ class WheelKineticsTest {
         assertEquals(128.0, WheelKinetics.totalStressUnits(16, 8.0))
         assertEquals(0.0, WheelKinetics.generatedRpm(false, 32).toDouble())
     }
+
+    @Test
+    fun `variant scale multiplies configured rpm`() {
+        assertEquals(2, WheelKinetics.variantScale("black"))
+        assertEquals(1, WheelKinetics.variantScale("BLACK_WHITE"))
+        assertEquals(1, WheelKinetics.variantScale("orange"))
+        assertEquals(
+            -64f,
+            WheelKinetics.generatedSpeed(
+                true,
+                WheelKinetics.HAND_CRANK_RPM * WheelKinetics.variantScale("black"),
+                CompatDirection.SOUTH
+            )
+        )
+        assertEquals(
+            512.0,
+            WheelKinetics.totalStressUnits(
+                WheelKinetics.HAND_CRANK_RPM * WheelKinetics.variantScale("black"),
+                WheelKinetics.HAND_CRANK_SU_PER_RPM
+            )
+        )
+    }
 }

@@ -8,12 +8,15 @@ import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity
 import com.simibubi.create.content.kinetics.base.IRotate
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity
 import com.starfish_studios.hamsters.block.HamsterWheelBlock
+import com.starfish_studios.hamsters.entity.Hamster
+import com.starfish_studios.hamsters.entity.SeatEntity
 import com.starfish_studios.hamsters.registry.HamstersBlockEntities
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.AABB
 import software.bernie.geckolib.animatable.GeoBlockEntity
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager
@@ -29,13 +32,16 @@ class HamsterWheelKineticBlockEntity(pos: BlockPos, state: BlockState) :
 
     private val cache: AnimatableInstanceCache = GeckoLibUtil.createInstanceCache(this)
     private var lastGeneratedSpeed: Float = Float.NaN
+    private var lastShaftConnected: Boolean = false
 
     override fun getGeneratedSpeed(): Float {
         val world = level ?: return 0f
         val facing = blockState.getValue(HamsterWheelBlock.FACING).toCompat()
+        val occupant = seatedHamster()
+        val rpm = CompatServerConfig.generatedRpm() * WheelKinetics.variantScale(occupant?.variant?.name.orEmpty())
         return WheelKinetics.generatedSpeed(
             HamsterWheelBlock.isOccupied(world, blockPos),
-            CompatServerConfig.generatedRpm(),
+            rpm,
             facing
         )
     }
@@ -50,15 +56,25 @@ class HamsterWheelKineticBlockEntity(pos: BlockPos, state: BlockState) :
         super.tick()
         val world = level ?: return
         val speed = generatedSpeed
-        if (speed != lastGeneratedSpeed) {
-            if (!world.isClientSide) {
-                updateGeneratedRotation()
-                if (ExploitationAdvancement.shouldAward(speed, hasConnectedShaft())) {
-                    ExploitationTrigger.awardNearby(world as ServerLevel, blockPos)
-                }
-            }
-            lastGeneratedSpeed = speed
+        val connected = hasConnectedShaft()
+        if (speed != lastGeneratedSpeed && !world.isClientSide) {
+            updateGeneratedRotation()
         }
+        if (
+            !world.isClientSide &&
+            ExploitationAdvancement.becameEligible(lastGeneratedSpeed, lastShaftConnected, speed, connected)
+        ) {
+            ExploitationTrigger.awardNearby(world as ServerLevel, blockPos)
+        }
+        lastGeneratedSpeed = speed
+        lastShaftConnected = connected
+    }
+
+    private fun seatedHamster(): Hamster? {
+        val world = level ?: return null
+        return world.getEntitiesOfClass(SeatEntity::class.java, AABB(blockPos))
+            .firstOrNull()
+            ?.firstPassenger as? Hamster
     }
 
     private fun hasConnectedShaft(): Boolean {

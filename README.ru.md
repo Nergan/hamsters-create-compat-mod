@@ -35,9 +35,9 @@ Create 6.0.8 на 1.20.1 ставится и на Forge, и на NeoForge. Hamst
 | [Hamsters](https://modrinth.com/mod/hamsters) | 1.20.1-1.0.3 (Forge) |
 | [GeckoLib](https://modrinth.com/mod/geckolib) | 4.4.9 (зависимость Hamsters) |
 
-## Серверные настройки
+## Настройки
 
-Файл мира: `serverconfig/hamsterscreatecompat-server.toml`
+Список модов → Create: Hamsters Compat → Config, либо `config/hamsterscreatecompat-common.toml`.
 
 | Ключ | По умолчанию | Смысл |
 | --- | --- | --- |
