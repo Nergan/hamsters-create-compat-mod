@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.hamsterscreate.compat.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "hamsterscreatecompat.refmap.json",
+  "mixins": [
+    "BlockEntityTypeMixin",
+    "HamsterMixin",
+    "HamsterWheelBlockMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

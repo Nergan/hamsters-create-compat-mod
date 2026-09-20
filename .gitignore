@@ -1,0 +1,43 @@
+# Gradle
+.gradle/
+build/
+out/
+bin/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.classpath
+.project
+.settings/
+*.launch
+eclipse/
+run/
+runs/
+run-data/
+
+# Minecraft / Forge
+*.log
+crash-reports/
+logs/
+saves/
+options.txt
+usercache.json
+usernamecache.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local secrets
+.env
+*.keystore
+*.jks
+
+# Release staging (produced by collectReleaseArtifacts)
+/release-local/
