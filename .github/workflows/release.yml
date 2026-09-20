@@ -35,7 +35,7 @@ jobs:
         run: ./gradlew -b logic.gradle test --stacktrace
 
       - name: Build remapped jar
-        run: ./gradlew build collectReleaseArtifacts --stacktrace
+        run: ./gradlew reobfJar collectReleaseArtifacts --stacktrace
 
       - name: Prepare release notes
         id: meta
