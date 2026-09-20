@@ -37,7 +37,10 @@ A 1.21.1 port will move to NeoForge packages, `neoforge.mods.toml`, Kotlin for F
 
 ## Config
 
-Mods list → Create: Hamsters Compat → Config, or `config/hamsterscreatecompat-common.toml`.
+Mods list → Create: Hamsters Compat → Config. Values come from the server: singleplayer and LAN host use the local world, a dedicated server ignores client changes.
+
+- Current world: `saves/<world>/serverconfig/hamsterscreatecompat-server.toml`
+- Template for new worlds: `defaultconfigs/hamsterscreatecompat-server.toml`
 
 | Key | Default | Meaning |
 | --- | --- | --- |

@@ -15,11 +15,15 @@ class CompatConfigScreen(private val parent: Screen) : Screen(
     private lateinit var exitsButton: CycleButton<Boolean>
     private lateinit var rpmBox: EditBox
     private lateinit var stressBox: EditBox
+    private var canEdit: Boolean = true
 
     override fun init() {
         val centerX = width / 2
+        val values = CompatServerConfig.currentValues()
+        canEdit = canEditLocally()
+
         exitsButton = addRenderableWidget(
-            CycleButton.onOffBuilder(CompatServerConfig.hamsterExitsWheelOnItsOwn())
+            CycleButton.onOffBuilder(values.exits)
                 .create(
                     centerX - 150,
                     50,
@@ -28,6 +32,7 @@ class CompatConfigScreen(private val parent: Screen) : Screen(
                     Component.translatable("config.hamsterscreatecompat.exits")
                 ) { _, _ -> }
         )
+        exitsButton.active = canEdit
 
         rpmBox = EditBox(
             font,
@@ -38,7 +43,9 @@ class CompatConfigScreen(private val parent: Screen) : Screen(
             Component.translatable("config.hamsterscreatecompat.rpm")
         )
         rpmBox.setMaxLength(4)
-        rpmBox.value = CompatServerConfig.generatedRpm().toString()
+        rpmBox.value = values.rpm.toString()
+        rpmBox.setEditable(canEdit)
+        rpmBox.active = canEdit
         addRenderableWidget(rpmBox)
 
         stressBox = EditBox(
@@ -50,7 +57,9 @@ class CompatConfigScreen(private val parent: Screen) : Screen(
             Component.translatable("config.hamsterscreatecompat.stress")
         )
         stressBox.setMaxLength(12)
-        stressBox.value = CompatServerConfig.stressCapacityPerRpm().toString()
+        stressBox.value = values.stress.toString()
+        stressBox.setEditable(canEdit)
+        stressBox.active = canEdit
         addRenderableWidget(stressBox)
 
         addRenderableWidget(
@@ -61,15 +70,27 @@ class CompatConfigScreen(private val parent: Screen) : Screen(
         )
     }
 
+    private fun canEditLocally(): Boolean {
+        val client = minecraft ?: return true
+        return client.level == null || client.hasSingleplayerServer()
+    }
+
     private fun save() {
-        CompatServerConfig.HAMSTER_EXITS_WHEEL_ON_ITS_OWN.set(exitsButton.value)
-        rpmBox.value.toIntOrNull()?.let { value ->
-            CompatServerConfig.GENERATED_RPM.set(value.coerceIn(1, 256))
+        if (!canEdit) {
+            return
         }
-        stressBox.value.toDoubleOrNull()?.let { value ->
-            CompatServerConfig.STRESS_CAPACITY_PER_RPM.set(value.coerceIn(0.0, 16384.0))
-        }
-        CompatServerConfig.SPEC.save()
+        val client = minecraft
+        val persistWorld = client != null && client.hasSingleplayerServer()
+        val persistDefaults = client == null || client.level == null
+        CompatServerConfig.saveValues(
+            CompatServerConfig.Values(
+                exitsButton.value,
+                rpmBox.value.toIntOrNull() ?: CompatServerConfig.generatedRpm(),
+                stressBox.value.toDoubleOrNull() ?: CompatServerConfig.stressCapacityPerRpm()
+            ),
+            persistWorld = persistWorld,
+            persistDefaults = persistDefaults
+        )
     }
 
     override fun render(graphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
@@ -91,6 +112,15 @@ class CompatConfigScreen(private val parent: Screen) : Screen(
             0xA0A0A0,
             false
         )
+        if (!canEdit) {
+            graphics.drawCenteredString(
+                font,
+                Component.translatable("config.hamsterscreatecompat.remote"),
+                width / 2,
+                height - 48,
+                0xFF5555
+            )
+        }
         super.render(graphics, mouseX, mouseY, partialTick)
     }
 

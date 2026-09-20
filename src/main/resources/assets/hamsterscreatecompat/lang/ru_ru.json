@@ -4,5 +4,6 @@
   "config.hamsterscreatecompat.title": "Create: Hamsters Compat",
   "config.hamsterscreatecompat.exits": "Хомяк сам выходит из колеса",
   "config.hamsterscreatecompat.rpm": "Обороты (RPM)",
-  "config.hamsterscreatecompat.stress": "Стресс на 1 RPM"
+  "config.hamsterscreatecompat.stress": "Стресс на 1 RPM",
+  "config.hamsterscreatecompat.remote": "Эти настройки задаёт сервер."
 }

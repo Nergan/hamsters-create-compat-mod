@@ -16,7 +16,11 @@ object HamstersCreateCompat {
     const val MOD_ID: String = "hamsterscreatecompat"
 
     init {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CompatServerConfig.SPEC)
+        ModLoadingContext.get().registerConfig(
+            ModConfig.Type.SERVER,
+            CompatServerConfig.SPEC,
+            CompatServerConfig.FILE_NAME
+        )
         MOD_BUS.addListener(::onCommonSetup)
         ExploitationTrigger.register()
     }

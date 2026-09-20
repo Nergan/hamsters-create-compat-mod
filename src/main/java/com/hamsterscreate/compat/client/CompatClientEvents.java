@@ -7,6 +7,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 
 @Mod.EventBusSubscriber(
     modid = HamstersCreateCompat.MOD_ID,
@@ -18,8 +19,13 @@ public final class CompatClientEvents {
     }
 
     @SubscribeEvent
+    public static void onConstruct(FMLConstructModEvent event) {
+        CompatClient.registerConfigScreen();
+    }
+
+    @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event) {
-        event.enqueueWork(CompatClient::registerConfigScreen);
+        CompatClient.registerConfigScreen();
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

@@ -37,7 +37,10 @@ Create 6.0.8 на 1.20.1 ставится и на Forge, и на NeoForge. Hamst
 
 ## Настройки
 
-Список модов → Create: Hamsters Compat → Config, либо `config/hamsterscreatecompat-common.toml`.
+Список модов → Create: Hamsters Compat → Config. Настройки берутся с сервера: в одиночке и у хоста LAN — из локального мира, на выделенном сервере клиентские правки не действуют.
+
+- Текущий мир: `saves/<world>/serverconfig/hamsterscreatecompat-server.toml`
+- Шаблон для новых миров: `defaultconfigs/hamsterscreatecompat-server.toml`
 
 | Ключ | По умолчанию | Смысл |
 | --- | --- | --- |

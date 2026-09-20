@@ -4,5 +4,6 @@
   "config.hamsterscreatecompat.title": "Create: Hamsters Compat",
   "config.hamsterscreatecompat.exits": "Hamster leaves the wheel on its own",
   "config.hamsterscreatecompat.rpm": "Generated RPM",
-  "config.hamsterscreatecompat.stress": "Stress capacity per RPM"
+  "config.hamsterscreatecompat.stress": "Stress capacity per RPM",
+  "config.hamsterscreatecompat.remote": "These settings are controlled by the server."
 }

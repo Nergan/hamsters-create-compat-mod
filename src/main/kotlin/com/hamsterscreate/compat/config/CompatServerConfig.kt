@@ -2,8 +2,13 @@ package com.hamsterscreate.compat.config
 
 import com.hamsterscreate.compat.logic.WheelKinetics
 import net.minecraftforge.common.ForgeConfigSpec
+import net.minecraftforge.fml.loading.FMLConfig
+import net.minecraftforge.fml.loading.FMLPaths
+import java.nio.file.Files
 
 object CompatServerConfig {
+    const val FILE_NAME: String = "hamsterscreatecompat-server.toml"
+
     @JvmField
     val SPEC: ForgeConfigSpec
 
@@ -48,11 +53,94 @@ object CompatServerConfig {
     }
 
     @JvmStatic
-    fun hamsterExitsWheelOnItsOwn(): Boolean = HAMSTER_EXITS_WHEEL_ON_ITS_OWN.get()
+    fun hamsterExitsWheelOnItsOwn(): Boolean =
+        if (SPEC.isLoaded) HAMSTER_EXITS_WHEEL_ON_ITS_OWN.get() else HAMSTER_EXITS_WHEEL_ON_ITS_OWN.default
 
     @JvmStatic
-    fun generatedRpm(): Int = GENERATED_RPM.get()
+    fun generatedRpm(): Int =
+        if (SPEC.isLoaded) GENERATED_RPM.get() else GENERATED_RPM.default
 
     @JvmStatic
-    fun stressCapacityPerRpm(): Double = STRESS_CAPACITY_PER_RPM.get()
+    fun stressCapacityPerRpm(): Double =
+        if (SPEC.isLoaded) STRESS_CAPACITY_PER_RPM.get() else STRESS_CAPACITY_PER_RPM.default
+
+    fun currentValues(): Values {
+        if (SPEC.isLoaded) {
+            return Values(
+                HAMSTER_EXITS_WHEEL_ON_ITS_OWN.get(),
+                GENERATED_RPM.get(),
+                STRESS_CAPACITY_PER_RPM.get()
+            )
+        }
+        return readDefaultConfigs()
+    }
+
+    fun saveValues(values: Values, persistWorld: Boolean, persistDefaults: Boolean) {
+        val next = values.sanitized()
+        if (persistWorld && SPEC.isLoaded) {
+            HAMSTER_EXITS_WHEEL_ON_ITS_OWN.set(next.exits)
+            GENERATED_RPM.set(next.rpm)
+            STRESS_CAPACITY_PER_RPM.set(next.stress)
+            SPEC.save()
+        }
+        if (persistDefaults) {
+            writeDefaultConfigs(next)
+        }
+    }
+
+    private fun defaultConfigPath() =
+        FMLPaths.GAMEDIR.get().resolve(FMLConfig.defaultConfigPath()).resolve(FILE_NAME)
+
+    private fun readDefaultConfigs(): Values {
+        val path = defaultConfigPath()
+        if (!Files.isRegularFile(path)) {
+            return Values.DEFAULTS
+        }
+        var exits = Values.DEFAULTS.exits
+        var rpm = Values.DEFAULTS.rpm
+        var stress = Values.DEFAULTS.stress
+        Files.readAllLines(path).forEach { raw ->
+            val line = raw.substringBefore('#').trim()
+            val key = line.substringBefore('=').trim()
+            val value = line.substringAfter('=', "").trim()
+            when (key) {
+                "hamsterExitsWheelOnItsOwn" -> value.toBooleanStrictOrNull()?.let { exits = it }
+                "generatedRpm" -> value.toIntOrNull()?.let { rpm = it }
+                "stressCapacityPerRpm" -> value.toDoubleOrNull()?.let { stress = it }
+            }
+        }
+        return Values(exits, rpm, stress)
+    }
+
+    private fun writeDefaultConfigs(values: Values) {
+        val path = defaultConfigPath()
+        Files.createDirectories(path.parent)
+        val body = """
+            [hamster_wheel]
+            hamsterExitsWheelOnItsOwn = ${values.exits}
+            generatedRpm = ${values.rpm}
+            stressCapacityPerRpm = ${values.stress}
+        """.trimIndent() + "\n"
+        Files.writeString(path, body)
+    }
+
+    data class Values(
+        val exits: Boolean,
+        val rpm: Int,
+        val stress: Double
+    ) {
+        fun sanitized(): Values = Values(
+            exits,
+            rpm.coerceIn(1, 256),
+            stress.coerceIn(0.0, 16384.0)
+        )
+
+        companion object {
+            val DEFAULTS: Values = Values(
+                false,
+                WheelKinetics.HAND_CRANK_RPM,
+                WheelKinetics.HAND_CRANK_SU_PER_RPM
+            )
+        }
+    }
 }
