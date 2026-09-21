@@ -125,7 +125,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.versions.outputs.mod_version }}
-          name: Create: Hamsters Compat ${{ steps.versions.outputs.mod_version }}
+          name: "Create: Hamsters Compat ${{ steps.versions.outputs.mod_version }}"
           target_commitish: ${{ github.sha }}
           make_latest: true
           overwrite_files: true
