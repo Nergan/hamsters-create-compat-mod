@@ -13,9 +13,13 @@ object WheelKinetics {
     @JvmStatic
     fun rotationAxis(facing: CompatDirection): CompatAxis = facing.axis
 
+    /**
+     * Вал только со стороны ступицы со спицами — противоположная [facing]
+     * грань. Сторона стойки кинетику не отдаёт.
+     */
     @JvmStatic
     fun hasShaftTowards(facing: CompatDirection, face: CompatDirection): Boolean =
-        facing.axis == face.axis
+        face.axis == facing.axis && face.positive != facing.positive
 
     @JvmStatic
     fun variantScale(name: String): Int =

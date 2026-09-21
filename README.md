@@ -10,7 +10,7 @@ Place a Create shaft against the hub of a hamster wheel. When a hamster runs, th
 
 ## Features
 
-- Shafts connect on both hub faces of a `hamsters:hamster_wheel`.
+- Shafts connect only on the spoke hub of a `hamsters:hamster_wheel`, not on the stand side.
 - Speed and stress default to the Create hand crank: **32 RPM** and **8 SU/RPM** (256 SU).
 - Right-click an empty wheel while holding a hamster to put it in.
 - Right-click an occupied wheel with an empty hand to take the hamster back.

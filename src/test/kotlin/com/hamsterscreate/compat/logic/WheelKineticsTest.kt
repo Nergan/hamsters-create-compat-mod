@@ -15,12 +15,17 @@ class WheelKineticsTest {
     }
 
     @Test
-    fun `shaft connects on both hub faces`() {
-        assertTrue(WheelKinetics.hasShaftTowards(CompatDirection.NORTH, CompatDirection.NORTH))
+    fun `shaft connects only on the spoke hub face`() {
+        assertFalse(WheelKinetics.hasShaftTowards(CompatDirection.NORTH, CompatDirection.NORTH))
         assertTrue(WheelKinetics.hasShaftTowards(CompatDirection.NORTH, CompatDirection.SOUTH))
         assertFalse(WheelKinetics.hasShaftTowards(CompatDirection.NORTH, CompatDirection.EAST))
         assertTrue(WheelKinetics.hasShaftTowards(CompatDirection.WEST, CompatDirection.EAST))
+        assertFalse(WheelKinetics.hasShaftTowards(CompatDirection.WEST, CompatDirection.WEST))
         assertFalse(WheelKinetics.hasShaftTowards(CompatDirection.WEST, CompatDirection.UP))
+        assertTrue(WheelKinetics.hasShaftTowards(CompatDirection.SOUTH, CompatDirection.NORTH))
+        assertFalse(WheelKinetics.hasShaftTowards(CompatDirection.SOUTH, CompatDirection.SOUTH))
+        assertTrue(WheelKinetics.hasShaftTowards(CompatDirection.EAST, CompatDirection.WEST))
+        assertFalse(WheelKinetics.hasShaftTowards(CompatDirection.EAST, CompatDirection.EAST))
     }
 
     @Test
