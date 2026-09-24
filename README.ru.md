@@ -67,4 +67,4 @@ Create 6.0.8 на 1.20.1 ставится и на Forge, и на NeoForge. Hamst
 
 ## Лицензия
 
-[MIT](LICENSE). Create, Hamsters, Kotlin for Forge и GeckoLib остаются на своих лицензиях.
+[MPL-2.0](LICENSE). Create, Hamsters, Kotlin for Forge и GeckoLib остаются на своих лицензиях.

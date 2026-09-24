@@ -67,4 +67,4 @@ The workflow builds the compat jar and attaches Create, Hamsters, Kotlin for For
 
 ## License
 
-[MIT](LICENSE). Create, Hamsters, Kotlin for Forge, and GeckoLib stay under their own licenses.
+[MPL-2.0](LICENSE). Create, Hamsters, Kotlin for Forge, and GeckoLib stay under their own licenses.
