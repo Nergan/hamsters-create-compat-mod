@@ -41,3 +41,7 @@ desktop.ini
 
 # Release staging (produced by collectReleaseArtifacts)
 /release-local/
+
+# McnCDN worker private key
+mcns-ci-github.pem
+.mcns-cdn/

@@ -185,3 +185,41 @@ jobs:
             hamsters(required){modrinth:sRzS8pFG}
             kotlin-for-forge(required){modrinth:ordsPcFz}
             geckolib(required){modrinth:8BmcQJ2H}
+
+      - name: Set up Node.js
+        if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publish jars to McnCDN
+        if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+        env:
+          MCNS_WORKER_ID: ${{ secrets.MCNS_WORKER_ID }}
+          MCNS_WORKER_KEY: ${{ secrets.MCNS_WORKER_KEY }}
+          MCNS_MOD_VERSION: ${{ steps.versions.outputs.mod_version }}
+          MCNS_COMMIT: ${{ github.sha }}
+          MCNS_REF: ${{ github.ref }}
+        run: |
+          set -euo pipefail
+          one() {
+            local pattern="$1"
+            shopt -s nullglob
+            local matches=( $pattern )
+            if [[ ${#matches[@]} -ne 1 ]]; then
+              echo "Expected exactly one file for ${pattern}, found ${#matches[@]}: ${matches[*]}" >&2
+              exit 1
+            fi
+            printf '%s\n' "${matches[0]}"
+          }
+          mod_jar="$(one 'release-assets/hamsterscreatecompat-*.jar')"
+          create_jar="$(one 'release-assets/create-*.jar')"
+          hamsters_jar="$(one 'release-assets/hamsters-forge-*.jar')"
+          kff_jar="$(one 'release-assets/kotlinforforge-*.jar')"
+          geckolib_jar="$(one 'release-assets/geckolib-*.jar')"
+          node scripts/mcns-release.mjs hamsters-create-compat-mod auto \
+            "mod=${mod_jar}" \
+            "create=${create_jar}" \
+            "hamsters=${hamsters_jar}" \
+            "kotlinforforge=${kff_jar}" \
+            "geckolib=${geckolib_jar}"
