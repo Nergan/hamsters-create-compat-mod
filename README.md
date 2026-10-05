@@ -8,6 +8,20 @@ Compatibility mod for [Create](https://modrinth.com/mod/create) and [Hamsters](h
 
 Place a Create shaft against the hub of a hamster wheel. When a hamster runs, the shaft turns the same way as the wheel.
 
+## Downloads
+
+The jar is on [GitHub Releases](https://github.com/Nergan/hamsters-create-compat-mod/releases/latest) and [Modrinth](https://modrinth.com/project/hamsters-create-compat). One file runs on Forge 47 and NeoForge 20.1. There is no Fabric jar in this repository.
+
+| File | Required | What it is |
+| --- | --- | --- |
+| `hamsterscreatecompat-forge-1.20.1-1.0.0.jar` | Yes | this compat |
+| `kotlinforforge-4.12.0-all.jar` | Yes | [Kotlin for Forge](https://modrinth.com/mod/kotlin-for-forge) 4.12.0 |
+| `create-1.20.1-6.0.8.jar` | Yes | [Create](https://modrinth.com/mod/create) 6.0.8, Forge and NeoForge |
+| `hamsters-forge-1.0.3-1.20.1.jar` | Yes | [Hamsters](https://modrinth.com/mod/hamsters) 1.20.1-1.0.3 |
+| `geckolib-forge-1.20.1-4.4.9.jar` | Yes | [GeckoLib](https://modrinth.com/mod/geckolib) 4.4.9, required by Hamsters |
+
+Do not install `*-sources.jar`. Java 17.
+
 ## Features
 
 - Shafts connect only on the spoke hub of a `hamsters:hamster_wheel`, not on the stand side.

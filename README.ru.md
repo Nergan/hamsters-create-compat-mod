@@ -8,6 +8,20 @@
 
 К ступице колеса хомяка можно подключить вал Create. Пока хомяк бежит, вал крутится в ту же сторону, что и колесо.
 
+## Загрузки
+
+Jar лежит в [GitHub Releases](https://github.com/Nergan/hamsters-create-compat-mod/releases/latest) и на [Modrinth](https://modrinth.com/project/hamsters-create-compat). Один файл ставится и на Forge 47, и на NeoForge 20.1. Fabric-jar в этом репозитории нет.
+
+| Файл | Нужен | Что это |
+| --- | --- | --- |
+| `hamsterscreatecompat-forge-1.20.1-1.0.0.jar` | Да | этот компат |
+| `kotlinforforge-4.12.0-all.jar` | Да | [Kotlin for Forge](https://modrinth.com/mod/kotlin-for-forge) 4.12.0 |
+| `create-1.20.1-6.0.8.jar` | Да | [Create](https://modrinth.com/mod/create) 6.0.8, Forge и NeoForge |
+| `hamsters-forge-1.0.3-1.20.1.jar` | Да | [Hamsters](https://modrinth.com/mod/hamsters) 1.20.1-1.0.3 |
+| `geckolib-forge-1.20.1-4.4.9.jar` | Да | [GeckoLib](https://modrinth.com/mod/geckolib) 4.4.9, нужен Hamsters |
+
+Файл `*-sources.jar` в `mods` не кладут. Java 17.
+
 ## Возможности
 
 - Вал стыкуется только со стороны ступицы со спицами у `hamsters:hamster_wheel`, не со стороны стойки.
