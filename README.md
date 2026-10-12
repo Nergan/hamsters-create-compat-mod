@@ -75,7 +75,7 @@ JDK 17:
 
 ## Releases
 
-Jars live on [GitHub Releases](https://github.com/Nergan/hamsters-create-compat-mod/releases/latest). A push to `main` updates the files on the current version’s release. A new `mod_version` in `gradle.properties` creates a new `vX.Y.Z` release.
+Jars live on [GitHub Releases](https://github.com/Nergan/hamsters-create-compat-mod/releases/latest). A push to `main` updates two GitHub Release pages for the same jars: Forge and NeoForge on Minecraft 1.20.1. Each page includes `all-jars.zip`.
 
 The workflow builds the compat jar and attaches Create, Hamsters, Kotlin for Forge, and GeckoLib. GitHub shows a SHA-256 digest next to each file. Do not install `*-sources.jar`.
 

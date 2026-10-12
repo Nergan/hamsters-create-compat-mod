@@ -75,7 +75,7 @@ Create 6.0.8 на 1.20.1 ставится и на Forge, и на NeoForge. Hamst
 
 ## Релизы
 
-Готовые jar лежат в [GitHub Releases](https://github.com/Nergan/hamsters-create-compat-mod/releases/latest). Пуш в `main` обновляет файлы текущего релиза. Новый `mod_version` в `gradle.properties` создаёт новый релиз `vX.Y.Z`.
+Готовые jar лежат в [GitHub Releases](https://github.com/Nergan/hamsters-create-compat-mod/releases/latest). Пуш в `main` обновляет две страницы GitHub Release с одними и теми же jar: Forge и NeoForge для Minecraft 1.20.1. На каждой странице есть `all-jars.zip`.
 
 Сборка кладёт jar компата и зависимости: Create, Hamsters, Kotlin for Forge, GeckoLib. У каждого файла на странице релиза GitHub показывает SHA-256. Не ставьте `*-sources.jar`.
 
