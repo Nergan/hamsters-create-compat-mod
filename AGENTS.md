@@ -33,3 +33,12 @@
 
 
 Две страницы релиза указывают на один и тот же jar: `create: hamsters compat for minecraft 1.20.1 forge` и `create: hamsters compat for minecraft 1.20.1 neoforge`.
+
+## Локальные инструменты
+
+Kidou и Mikchan CDN — локальные инструменты этой мастерской. Искать сведения о них в интернете бесполезно: публичной документации нет. Для Kidou источник — спецификация в `D:\DATA\soft\code\projects\minecraft\modpacks\Kidou-1.1.4-release.jar` и `D:\DATA\soft\code\projects\minecraft\modpacks\AGENTS.md`. Для Mikchan CDN — https://cdn.mikchan.net/ai/SKILL.md и `GET https://cdn.mikchan.net/version`.
+
+## Проверка мода и сборки
+
+Работа над модом или сборкой заканчивается только после тестов, проверки запуском локального сервера и локального клиента. Сборка jar без этого не считается готовой.
+
