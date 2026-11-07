@@ -148,7 +148,7 @@ jobs:
           set -euo pipefail
           python3 .github/scripts/replace-modrinth-versions.py \
             hamsters-create-compat \
-            "${{ steps.versions.outputs.mod_version }}"
+            --slot "${{ steps.versions.outputs.mod_version }}" neoforge 1.20.1
 
       - name: Publish Modrinth
         if: steps.modrinth_token.outputs.present == 'true'
